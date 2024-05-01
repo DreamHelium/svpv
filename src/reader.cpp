@@ -83,6 +83,7 @@ void dh_svpv_output_reader(tinyxml2::XMLNode* node)
         DhArgInfo* arg = dh_arg_info_new();
         dh_arg_info_add_arg(arg, 'p', "parent", "To parent node.");
         dh_arg_info_add_arg(arg, 'q', "quit", "Quit application");
+        dh_arg_info_add_arg(arg, 's', "save", "Save file");
 
         DhOut* out = dh_out_new();
         GValue val;
@@ -96,6 +97,13 @@ void dh_svpv_output_reader(tinyxml2::XMLNode* node)
             {
                 if(node->Parent())
                     node = node->Parent();
+            }
+            else if(val_c == 's')
+            {
+                tinyxml2::XMLDocument* document = node->GetDocument();
+                std::string str;
+                std::getline(std::cin, str);
+                document->SaveFile(str.c_str());
             }
             else
             {

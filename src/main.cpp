@@ -18,10 +18,11 @@ static int internal_strcmp(gconstpointer a, gconstpointer b)
 static GList* find_save()
 {
 #ifdef G_OS_WIN32
+    path = g_getenv("APPDATA");
 #else
     path = g_get_user_config_dir();
-    path += "/StardewValley/Saves/";
 #endif
+    path += "/StardewValley/Saves/";
     GList* dir_list = dh_file_list_create(path.c_str());
     GList* vdf_file = g_list_find_custom(dir_list, "steam_autocloud.vdf", internal_strcmp);
     free(vdf_file->data);
